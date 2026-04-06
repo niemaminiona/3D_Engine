@@ -37,19 +37,10 @@ string static readFromFile(const string filepath) {
 	return content;
 }
 
-const char* readShader(const string filepath) {
-	static string source;
-	source = readFromFile(filepath);
-	if (source.empty()) {
-		std::cout << "File is empty: " + filepath << std::endl;
-	}
-	return source.c_str();
-}
-
 // main program
 int main() {
-	string vertexShaderCode = readShader("Shaders/exampleShader1/vertex_shader.glsl");
-	string fragmentShaderCode = readShader("Shaders/exampleShader1/fragment_shader.glsl");
+	string vertexShaderCode = readFromFile("Shaders/exampleShader1/vertex_shader.glsl");
+	string fragmentShaderCode = readFromFile("Shaders/exampleShader1/fragment_shader.glsl");
 
 	const char* vertexShaderSource = vertexShaderCode.c_str();
 	const char* fragmentShaderSource = fragmentShaderCode.c_str();
