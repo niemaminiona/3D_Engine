@@ -156,8 +156,10 @@
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="fragment_shader.glsl" />
-    <None Include="vertex_shader.glsl" />
+    <None Include="Shaders\exampleShader1\fragment_shader.glsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="Shaders\exampleShader1\vertex_shader.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
