@@ -9,8 +9,8 @@
 using string = std::string;
 
 // classic full_HD 16:9 resolution
-int windowWidth = 1920;
-int windowHeight = 1080;
+int windowWidth = 1600;
+int windowHeight = 900;
 
 // method that checks if window should close
 void checkClose(GLFWwindow* window) {
@@ -39,8 +39,8 @@ string static readFromFile(const string filepath) {
 
 // main program
 int main() {
-	string vertexShaderCode = readFromFile("Shaders/exampleShader1/vertex_shader.glsl");
-	string fragmentShaderCode = readFromFile("Shaders/exampleShader1/fragment_shader.glsl");
+	string vertexShaderCode = readFromFile("shaders/vertex_shader.glsl");
+	string fragmentShaderCode = readFromFile("shaders/fragment_shader.glsl");
 
 	const char* vertexShaderSource = vertexShaderCode.c_str();
 	const char* fragmentShaderSource = fragmentShaderCode.c_str();
