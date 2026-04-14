@@ -6,6 +6,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "Shader.cpp"
+
 using string = std::string;
 
 // classic full_HD 16:9 resolution
@@ -20,30 +22,9 @@ void checkClose(GLFWwindow* window) {
 	}
 }
 
-// function that reads data from files and return it in string
-string static readFromFile(const string filepath) {
-	std::ifstream file(filepath);
-
-	if (!file.is_open()) {
-		std::cout << "Failed to open file: " << filepath << std::endl;
-		return "";
-	}
-	string line, content;
-	while (std::getline(file, line)) {
-		content += line + "\n";
-	}
-
-	file.close();
-	return content;
-}
-
 // main program
 int main() {
-	string vertexShaderCode = readFromFile("shaders/vertex_shader.glsl");
-	string fragmentShaderCode = readFromFile("shaders/fragment_shader.glsl");
-
-	const char* vertexShaderSource = vertexShaderCode.c_str();
-	const char* fragmentShaderSource = fragmentShaderCode.c_str();
+	
 
 	if (!glfwInit()) {
 		std::cout << "Failed to intialize GLFW" << std::endl;
@@ -69,22 +50,7 @@ int main() {
 	}
 	glViewport(0, 0, windowWidth, windowHeight);
 
-
-	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-	glCompileShader(vertexShader);
-
-	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-	glCompileShader(fragmentShader);
-
-	GLuint shaderProgram = glCreateProgram();
-	glAttachShader(shaderProgram, vertexShader);
-	glAttachShader(shaderProgram, fragmentShader);
-	glLinkProgram(shaderProgram);
-
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
+	Shader shader = Shader("shaders");
 
 	GLfloat vertices[] = {
 		-0.5f, -0.5f, 0.0f,
@@ -126,7 +92,7 @@ int main() {
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		glUseProgram(shaderProgram);
+		shader.Bind();
 		glBindVertexArray(VAO);
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 
@@ -135,7 +101,6 @@ int main() {
 
 	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
-	glDeleteProgram(shaderProgram);
 
 	glfwDestroyWindow(window);
 	glfwTerminate();
