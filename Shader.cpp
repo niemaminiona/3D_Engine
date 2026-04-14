@@ -37,6 +37,10 @@ public:
 		glUseProgram(program);
 	}
 
+	void Delete() {
+		glDeleteProgram(program);
+	}
+
 private:
 	// function that reads data from files and return it in string
 	string static readFromFile(const string filepath) {
