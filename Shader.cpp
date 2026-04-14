@@ -36,6 +36,7 @@ public:
 	void Bind() {
 		glUseProgram(program);
 	}
+
 private:
 	// function that reads data from files and return it in string
 	string static readFromFile(const string filepath) {
@@ -45,6 +46,7 @@ private:
 			std::cout << "Failed to open file: " << filepath << std::endl;
 			return "";
 		}
+
 		string line, content;
 		while (std::getline(file, line)) {
 			content += line + "\n";

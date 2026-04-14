@@ -100,7 +100,7 @@
       <AdditionalDependencies>glfw3.lib;opengl32.lib;gdi32.lib;user32.lib;shell32.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /Y /I "$(ProjectDir)shaders\*.glsl" "$(OutDir)shaders\"</Command>
+      <Command>xcopy /Y /I /E "$(ProjectDir)shaders" "$(OutDir)shaders\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -119,7 +119,7 @@
       <AdditionalDependencies>glfw3.lib;opengl32.lib;gdi32.lib;user32.lib;shell32.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /Y /I "$(ProjectDir)shaders\*.glsl" "$(OutDir)shaders\"</Command>
+      <Command>xcopy /Y /I /E "$(ProjectDir)shaders" "$(OutDir)shaders\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -136,7 +136,7 @@
       <AdditionalDependencies>glfw3.lib;opengl32.lib;gdi32.lib;user32.lib;shell32.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /Y /I "$(ProjectDir)shaders\*.glsl" "$(OutDir)shaders\"</Command>
+      <Command>xcopy /Y /I /E "$(ProjectDir)shaders" "$(OutDir)shaders\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -155,7 +155,7 @@
       <AdditionalDependencies>glfw3.lib;opengl32.lib;gdi32.lib;user32.lib;shell32.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /Y /I "$(ProjectDir)shaders\*.glsl" "$(OutDir)shaders\"</Command>
+      <Command>xcopy /Y /I /E "$(ProjectDir)shaders" "$(OutDir)shaders\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -169,8 +169,10 @@
     <ClCompile Include="Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\fragment_shader.glsl" />
-    <None Include="shaders\vertex_shader.glsl" />
+    <None Include="shaders\testShader1\fragment_shader.glsl" />
+    <None Include="shaders\testShader1\vertex_shader.glsl" />
+    <None Include="shaders\testShader2\fragment_shader.glsl" />
+    <None Include="shaders\testShader2\vertex_shader.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

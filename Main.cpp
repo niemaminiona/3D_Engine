@@ -50,7 +50,7 @@ int main() {
 	}
 	glViewport(0, 0, windowWidth, windowHeight);
 
-	Shader shader = Shader("shaders");
+	Shader shader = Shader("shaders/testShader1");
 
 	GLfloat vertices[] = {
 		-0.5f, -0.5f, 0.0f,
