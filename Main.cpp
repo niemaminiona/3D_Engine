@@ -73,7 +73,6 @@ int main() {
 	}
 
 	shader.Delete();
-	model.Delete();
 
 	glfwDestroyWindow(window);
 	glfwTerminate();

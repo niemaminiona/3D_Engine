@@ -4,6 +4,8 @@
 class FloatModel {
 public:
 	FloatModel(const std::vector<GLfloat>& vertices) {
+		vertexCount = vertices.size() / 3;
+
 		glGenVertexArrays(1, &VAO);
 		glGenBuffers(1, &VBO);
 
@@ -21,13 +23,14 @@ public:
 
 	void Render() {
 		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glDrawArrays(GL_TRIANGLES, 0, vertexCount);
 	}
 
-	void Delete() {
+	~FloatModel() {
 		glDeleteVertexArrays(1, &VAO);
 		glDeleteBuffers(1, &VBO);
 	}
 private:
 	GLuint VAO, VBO;
+	GLsizei vertexCount;
 };
