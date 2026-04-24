@@ -29,9 +29,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\testShader2\vertex_shader.glsl" />
     <None Include="shaders\testShader1\fragment_shader.glsl" />
     <None Include="shaders\testShader1\vertex_shader.glsl" />
-    <None Include="shaders\testShader2\fragment_shader.glsl" />
   </ItemGroup>
 </Project>

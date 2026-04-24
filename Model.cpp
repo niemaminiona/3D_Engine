@@ -4,7 +4,7 @@
 class FloatModel {
 public:
 	FloatModel(const std::vector<GLfloat>& vertices) {
-		vertexCount = vertices.size() / 3;
+		vertexCount = (GLsizei)vertices.size() / 3;
 
 		glGenVertexArrays(1, &VAO);
 		glGenBuffers(1, &VBO);

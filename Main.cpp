@@ -5,7 +5,9 @@
 #include <string>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <glm/mat4x4.hpp>
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 #include "Shader.cpp"
 #include "Model.cpp"
@@ -60,14 +62,20 @@ int main() {
 
 	FloatModel model(vertices);
 
+	glm::mat4 ObjectMatrix(1.0f);
+
 	// main update loop
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
 
 		checkClose(window);
 		update(window);
-
 		shader.Bind();
+
+		ObjectMatrix = glm::translate(ObjectMatrix, glm::vec3(0.001f, 0.0f, 0.0f));
+		shader.setUniformMatrix4("model", ObjectMatrix);
+
+		
 		model.Render();
 
 		glfwSwapBuffers(window);
