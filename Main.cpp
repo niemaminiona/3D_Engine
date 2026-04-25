@@ -64,11 +64,17 @@ int main() {
 		-0.5f, -0.5f, 0.0f,
 		 0.5f, -0.5f, 0.0f,
 		 0.5f,  0.5f, 0.0f,
+		 -0.5f, 0.5f, 0.0f
 	};
 
-	FloatModel model(vertices);
+	std::vector<GLuint> indices = {
+		0, 1, 2,
+		1, 2, 3
+	};
 
-	glm::mat4 ObjectMatrix(1.0f);
+	FloatModel model(vertices, indices);
+
+	glm::mat4 objectMatrix(1.0f);
 	glm::vec3 moveVec(0.005f, 0.0f, 0.0f);
 
 	// main update loop
@@ -77,9 +83,9 @@ int main() {
 		
 
 
-		ObjectMatrix = glm::translate(ObjectMatrix, moveVec);
-		ObjectMatrix = glm::rotate(ObjectMatrix, 1 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
-		shader.setUniformMatrix4("model", ObjectMatrix);
+		objectMatrix = glm::translate(objectMatrix, moveVec);
+		objectMatrix = glm::rotate(objectMatrix, 1 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		shader.setUniformMatrix4("model", objectMatrix);
 
 
 		shader.Bind();

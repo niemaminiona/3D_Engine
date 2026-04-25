@@ -5,13 +5,18 @@
 
 class FloatModel {
 public:
-	FloatModel(const std::vector<GLfloat>& vertices) {
+	FloatModel(const std::vector<GLfloat>& vertices, const std::vector<GLuint> indices) {
 		vertexCount = (GLsizei)vertices.size() / 3;
+		indicesCount = (GLsizei)indices.size();
 
 		glGenVertexArrays(1, &VAO);
 		glGenBuffers(1, &VBO);
+		glGenBuffers(1, &IBO);
 
 		glBindVertexArray(VAO);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices.data(), GL_STATIC_DRAW);
 
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
 		glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(GLfloat), vertices.data(), GL_STATIC_DRAW);
@@ -20,19 +25,23 @@ public:
 		glEnableVertexAttribArray(0);
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);
 	}
 
 	void Render() {
 		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, vertexCount);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
+		glDrawElements(GL_TRIANGLES, indicesCount, GL_UNSIGNED_INT, 0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 
 	~FloatModel() {
 		glDeleteVertexArrays(1, &VAO);
 		glDeleteBuffers(1, &VBO);
+		glDeleteBuffers(1, &IBO);
 	}
 private:
-	GLuint VAO, VBO;
-	GLsizei vertexCount;
+	GLuint VAO, VBO, IBO;
+	GLsizei vertexCount, indicesCount;
 };
