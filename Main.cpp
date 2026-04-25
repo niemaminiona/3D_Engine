@@ -69,13 +69,14 @@ int main() {
 
 	std::vector<GLuint> indices = {
 		0, 1, 2,
-		1, 2, 3
+		0, 2, 3
 	};
 
 	FloatModel model(vertices, indices);
 
 	glm::mat4 objectMatrix(1.0f);
-	glm::vec3 moveVec(0.005f, 0.0f, 0.0f);
+	objectMatrix = glm::scale(objectMatrix, glm::vec3(0.5f, 0.5f, 0.0f));
+	glm::vec3 moveVec(0.01f, 0.0f, 0.0f);
 
 	// main update loop
 	while (!glfwWindowShouldClose(window)) {
