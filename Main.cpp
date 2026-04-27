@@ -22,13 +22,11 @@ int windowHeight = 900;
 
 const float toRadians = glm::pi<float>() / 180.0f;
 
-void checkClose(GLFWwindow* window);
+void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 void update(GLFWwindow* window);
 
 // main program
 int main() {
-	
-
 	if (!glfwInit()) {
 		std::cout << "Failed to intialize GLFW" << std::endl;
 		return -1;
@@ -64,6 +62,11 @@ int main() {
 	if (vidMode != nullptr) {
 		glfwSetWindowPos(window, (vidMode->width - windowWidth) / 2, (vidMode->height - windowHeight) / 2);
 	}
+
+	glfwSetKeyCallback(window, keyCallback);
+
+
+
 
 	Shader shader = Shader("testShader1");
 
@@ -125,8 +128,6 @@ int main() {
 		objectMatrix = glm::rotate(objectMatrix, 0.5f * toRadians, glm::vec3(1.0f, 0.1f, 1.0f));
 		shader.setUniformMatrix4("model", objectMatrix);
 
-
-		
 		model.Render();
 
 		glfwSwapBuffers(window);
@@ -139,20 +140,11 @@ int main() {
 	return 0;
 }
 
-// method that checks if window should close
-void checkClose(GLFWwindow* window) {
-	// if pressed escape key, close window
-	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-		glfwSetWindowShouldClose(window, GLFW_TRUE);
-	}
-}
 
 // this code runs every frame
 int framesCount = 0;
 void update(GLFWwindow* window) {
 	glfwPollEvents();
-
-	checkClose(window);
 
 	framesCount++;
 	string title = "OpenGL " + std::to_string(framesCount);
@@ -162,3 +154,9 @@ void update(GLFWwindow* window) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
+//this function checks every pressed key
+void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
+		glfwSetWindowShouldClose(window, GLFW_TRUE);
+	}
+}
