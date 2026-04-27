@@ -38,7 +38,7 @@ int main() {
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-	GLFWwindow* window = glfwCreateWindow(windowWidth, windowHeight, "OpenGL", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(windowWidth, windowHeight, "OpenGL Render", NULL, NULL);
 
 	if (window == NULL) {
 		std::cerr << "Failed to create GLFW window" << std::endl;
@@ -59,6 +59,11 @@ int main() {
 	glViewport(0, 0, windowWidth, windowHeight);
 
 	ShowWindow(GetConsoleWindow(), SW_HIDE); // hides terminal from background
+
+	const GLFWvidmode* vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+	if (vidMode != nullptr) {
+		glfwSetWindowPos(window, (vidMode->width - windowWidth) / 2, (vidMode->height - windowHeight) / 2);
+	}
 
 	Shader shader = Shader("shaders/testShader1");
 
@@ -117,7 +122,7 @@ int main() {
 
 		shader.setUniformMatrix4("projection", projection);
 
-		objectMatrix = glm::rotate(objectMatrix, 0.5f * toRadians, glm::vec3(1.0f, 1.0f, 1.0f));
+		objectMatrix = glm::rotate(objectMatrix, 0.5f * toRadians, glm::vec3(1.0f, 0.1f, 1.0f));
 		shader.setUniformMatrix4("model", objectMatrix);
 
 
