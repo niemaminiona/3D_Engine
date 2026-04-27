@@ -65,7 +65,7 @@ int main() {
 		glfwSetWindowPos(window, (vidMode->width - windowWidth) / 2, (vidMode->height - windowHeight) / 2);
 	}
 
-	Shader shader = Shader("shaders/testShader1");
+	Shader shader = Shader("testShader1");
 
 	float squareSize = 1.0f;
 	std::vector<GLfloat> vertices = {
@@ -108,11 +108,11 @@ int main() {
 	FloatModel model(vertices, indices);
 
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)windowWidth/(GLfloat)windowHeight, 0.1f, 100.0f);
-	//glm::mat4 projection(1.0f);
 
 	glm::mat4 objectMatrix(1.0f);
 	objectMatrix = glm::translate(objectMatrix, glm::vec3(0.0f, 0.0f, -2.0f));
 	objectMatrix = glm::scale(objectMatrix, glm::vec3(0.5f));
+
 	glm::vec3 moveVec(0.01f, 0.0f, 0.0f);
 
 	// main update loop

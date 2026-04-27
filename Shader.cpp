@@ -11,9 +11,9 @@ class Shader {
 public:
 	GLuint program;
 
-	Shader(const string filePath) {
-		string vertexShaderCode = readFromFile(filePath + "/vertex_shader.glsl");
-		string fragmentShaderCode = readFromFile(filePath + "/fragment_shader.glsl");
+	Shader(const string shaderName) {
+		string vertexShaderCode = readFromFile("shaders/" + shaderName + "/vertex_shader.glsl");
+		string fragmentShaderCode = readFromFile("shaders/" + shaderName + "/fragment_shader.glsl");
 
 		const char* vertexShaderSource = vertexShaderCode.c_str();
 		const char* fragmentShaderSource = fragmentShaderCode.c_str();
