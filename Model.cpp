@@ -1,8 +1,12 @@
 #include "Model.h"
+#include "Shader.h"
 
-FloatModel::FloatModel(const std::vector<GLfloat>&vertices, const std::vector<GLuint> indices) {
+FloatModel::FloatModel(const std::vector<GLfloat>&vertices, const std::vector<GLuint> indices, Shader& shader) : shader(shader) {
+	
 	vertexCount = (GLsizei)vertices.size() / 3;
 	indicesCount = (GLsizei)indices.size();
+
+	objectMatrix = glm::mat4(1.0f);
 
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
@@ -29,6 +33,7 @@ FloatModel::~FloatModel() {
 }
 
 void FloatModel::Render() {
+	shader.setUniformMatrix4("model", objectMatrix);
 	glBindVertexArray(VAO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
 	glDrawElements(GL_TRIANGLES, indicesCount, GL_UNSIGNED_INT, 0);
@@ -39,6 +44,18 @@ void FloatModel::ClearBuffers() {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
+}
+
+void FloatModel::Translate(glm::vec3 vector) {
+	objectMatrix = glm::translate(objectMatrix, vector);
+}
+
+void FloatModel::Rotate(float degrees, glm::vec3 vector) {
+	objectMatrix = glm::rotate(objectMatrix, degrees * (glm::pi<float>() / 180.0f), vector);
+}
+
+void FloatModel::Scale(glm::vec3 vector) {
+	objectMatrix = glm::scale(objectMatrix, vector);
 }
 
 

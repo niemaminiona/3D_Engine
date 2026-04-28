@@ -1,29 +1,9 @@
-#define GLFW_INCLUDE_NONE
-#include <windows.h>
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <cmath>
+#include "app.h";
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/constants.hpp>
-
-#include "Shader.h"
-#include "Model.h"
-
-using string = std::string;
 
 // classic full_HD 16:9 resolution
 int windowWidth = 1600;
 int windowHeight = 900;
-
-const float toRadians = glm::pi<float>() / 180.0f;
-
-void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
-void update(GLFWwindow* window);
 
 // main program
 int main() {
@@ -67,7 +47,6 @@ int main() {
 
 
 
-
 	Shader shader = Shader("testShader1");
 
 	float squareSize = 1.0f;
@@ -108,15 +87,11 @@ int main() {
 		5, 3, 7
 	};
 
-	FloatModel model(vertices, indices);
-
+	FloatModel model(vertices, indices, shader);
+	model.Translate(glm::vec3(0.0f, 0.0f, -2.0f));
+	model.Scale(glm::vec3(0.5f));
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)windowWidth/(GLfloat)windowHeight, 0.1f, 100.0f);
 
-	glm::mat4 objectMatrix(1.0f);
-	objectMatrix = glm::translate(objectMatrix, glm::vec3(0.0f, 0.0f, -2.0f));
-	objectMatrix = glm::scale(objectMatrix, glm::vec3(0.5f));
-
-	glm::vec3 moveVec(0.01f, 0.0f, 0.0f);
 
 	// main update loop
 	while (!glfwWindowShouldClose(window)) {
@@ -125,8 +100,7 @@ int main() {
 
 		shader.setUniformMatrix4("projection", projection);
 
-		objectMatrix = glm::rotate(objectMatrix, 0.5f * toRadians, glm::vec3(1.0f, 0.1f, 1.0f));
-		shader.setUniformMatrix4("model", objectMatrix);
+		model.Rotate(0.5f, glm::vec3(1.0f, 0.1f, 1.0f));
 
 		model.Render();
 
