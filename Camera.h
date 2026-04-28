@@ -11,17 +11,15 @@
 
 class Camera {
 public:
-	glm::vec3 Position;
-	glm::vec3 Orientation = glm::vec3(0.0f, 0.0f, -1.0f);
-	glm::vec3 Up = glm::vec3(0.0f, 1.0f, 0.0f);
 
-	int width;
-	int height;
-
+	// projection values
+	GLint width;
+	GLint height;
 	GLfloat FOV = 45.0f;
-	float speed = 0.1f;
-	float sensitivity = 100.0f;
+	GLfloat zNear = 0.1f;
+	GLfloat zFar = 100.0f;
 
+	// used matrices
 	glm::mat4 view = glm::mat4(1.0f);
 	glm::mat4 projection = glm::mat4(1.0f);
 
@@ -29,8 +27,20 @@ public:
 
 	void Update();
 
-	void HandleInputs(GLFWwindow* window);
+	void HandleKeyInputs(GLFWwindow* window);
 
 private:
 	Shader& shader;
+
+	glm::vec3 position;
+	glm::vec3 front = glm::vec3(0.0f, 0.0f, -1.0f);
+	glm::vec3 up;
+	glm::vec3 right;
+	//glm::vec3 worldUp = glm::vec3(0.0f, 1.0f, 0.0f);
+
+	GLfloat yaw = -90.0f;
+	GLfloat pitch = 0.0f;
+
+	GLfloat moveSpeed = 0.05f;
+	GLfloat turnSpeed = 0.75f;
 };

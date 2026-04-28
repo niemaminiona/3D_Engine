@@ -98,7 +98,7 @@ int main() {
 	while (!glfwWindowShouldClose(window)) {
 		update(window);
 		shader.Bind();
-		camera.HandleInputs(window);
+		camera.HandleKeyInputs(window);
 		camera.Update();
 
 		model.Rotate(0.5f, glm::vec3(1.0f, 0.1f, 1.0f));
