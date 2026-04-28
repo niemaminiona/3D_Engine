@@ -1,4 +1,5 @@
-#include "app.h";
+#include "app.h"
+#include "Camera.h"
 
 
 // classic full_HD 16:9 resolution
@@ -88,17 +89,17 @@ int main() {
 	};
 
 	FloatModel model(vertices, indices, shader);
-	model.Translate(glm::vec3(0.0f, 0.0f, -2.0f));
+	model.Translate(glm::vec3(0.0f,0.0f,-2.0f));
 	model.Scale(glm::vec3(0.5f));
-	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)windowWidth/(GLfloat)windowHeight, 0.1f, 100.0f);
 
+	Camera camera(windowWidth, windowHeight, glm::vec3(0.0f,0.0f,0.0f), shader);
 
 	// main update loop
 	while (!glfwWindowShouldClose(window)) {
 		update(window);
 		shader.Bind();
-
-		shader.setUniformMatrix4("projection", projection);
+		camera.HandleInputs(window);
+		camera.Update();
 
 		model.Rotate(0.5f, glm::vec3(1.0f, 0.1f, 1.0f));
 
