@@ -12,7 +12,7 @@
 #include <glm/gtc/constants.hpp>
 
 #include "Shader.h"
-#include "Model.cpp"
+#include "Model.h"
 
 using string = std::string;
 
