@@ -32,4 +32,9 @@
     <None Include="shaders\testShader1\fragment_shader.glsl" />
     <None Include="shaders\testShader1\vertex_shader.glsl" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Shader.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>

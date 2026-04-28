@@ -1,76 +1,59 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <glad/glad.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include "Shader.h"
 
-using string = std::string;
+Shader::Shader(const std::string& shaderName) {
+	std::string vertexShaderCode = readFromFile("shaders/" + shaderName + "/vertex_shader.glsl");
+	std::string fragmentShaderCode = readFromFile("shaders/" + shaderName + "/fragment_shader.glsl");
 
-class Shader {
-public:
-	GLuint program;
+	const char* vertexShaderSource = vertexShaderCode.c_str();
+	const char* fragmentShaderSource = fragmentShaderCode.c_str();
 
-	Shader(const string shaderName) {
-		string vertexShaderCode = readFromFile("shaders/" + shaderName + "/vertex_shader.glsl");
-		string fragmentShaderCode = readFromFile("shaders/" + shaderName + "/fragment_shader.glsl");
+	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+	glCompileShader(vertexShader);
 
-		const char* vertexShaderSource = vertexShaderCode.c_str();
-		const char* fragmentShaderSource = fragmentShaderCode.c_str();
+	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+	glCompileShader(fragmentShader);
 
-		GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-		glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-		glCompileShader(vertexShader);
+	program = glCreateProgram();
+	glAttachShader(program, vertexShader);
+	glAttachShader(program, fragmentShader);
+	glLinkProgram(program);
 
-		GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-		glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-		glCompileShader(fragmentShader);
+	glDeleteShader(vertexShader);
+	glDeleteShader(fragmentShader);
+}
 
-		program = glCreateProgram();
-		glAttachShader(program, vertexShader);
-		glAttachShader(program, fragmentShader);
-		glLinkProgram(program);
+Shader::~Shader() {
+	glDeleteProgram(program);
+}
 
-		glDeleteShader(vertexShader);
-		glDeleteShader(fragmentShader);
+void Shader::Bind() {
+	glUseProgram(program);
+}
+
+void Shader::setUniformMatrix4(std::string name, const glm::mat4& value) {
+	const char* parsedName = name.c_str();
+	GLint location = glGetUniformLocation(program, parsedName);
+	if (location != -1) {
+		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value));
+	}
+}
+
+
+std::string Shader::readFromFile(const std::string filepath){
+	std::ifstream file(filepath);
+
+	if (!file.is_open()) {
+		std::cout << "Failed to open file: " << filepath << std::endl;
+		return "";
 	}
 
-	void Bind() {
-		glUseProgram(program);
+	std::string line, content;
+	while (std::getline(file, line)) {
+		content += line + "\n";
 	}
 
-	void setUniformMatrix4(string name, glm::mat4 value) {
-		const char* parsedName = name.c_str();
-		GLint location = glGetUniformLocation(program, parsedName);
-		if (location != -1) {
-			glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value));
-		}
-	}
-
-	~Shader() {
-		glDeleteProgram(program);
-	}
-
-	void Delete() {
-		glDeleteProgram(program);
-	}
-
-private:
-	// function that reads data from files and return it in string
-	string static readFromFile(const string filepath) {
-		std::ifstream file(filepath);
-
-		if (!file.is_open()) {
-			std::cout << "Failed to open file: " << filepath << std::endl;
-			return "";
-		}
-
-		string line, content;
-		while (std::getline(file, line)) {
-			content += line + "\n";
-		}
-
-		file.close();
-		return content;
-	}
-};
+	file.close();
+	return content;
+}

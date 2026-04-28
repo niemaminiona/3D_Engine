@@ -8,7 +8,7 @@ A lightweight 3D rendering engine designed for viewing and interacting with 3D m
 
 
 ## How to run:<br>
-1. Head to <a href="https://github.com/niemaminiona/3D_Engine/tags">Releases</a> and choose version. Examples:<br><br>
+1. Head to <a href="https://github.com/niemaminiona/3D_Engine/releases">Releases</a> and choose version. Examples:<br><br>
 `v0.2` -> Stable release<br>
 `v0.2b` -> Beta release (Possible bugs)<br><br>
 2. In assets you should be able to download program in .rar file<br>

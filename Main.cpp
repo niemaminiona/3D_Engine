@@ -11,7 +11,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/constants.hpp>
 
-#include "Shader.cpp"
+#include "Shader.h"
 #include "Model.cpp"
 
 using string = std::string;
@@ -132,8 +132,6 @@ int main() {
 
 		glfwSwapBuffers(window);
 	}
-
-	shader.Delete();
 
 	glfwDestroyWindow(window);
 	glfwTerminate();
