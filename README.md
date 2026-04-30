@@ -3,14 +3,27 @@ A lightweight 3D rendering engine designed for viewing and interacting with 3D m
 > [!IMPORTANT]
 > The current version `(v0.1)` includes only one pre-installed object. Support for importing custom models will be added in future updates.
 ## Example:<br>
-<img width="360" alt="2026-04-27 15-48-48" src="https://github.com/user-attachments/assets/710ad661-46a3-4795-abd1-9fa3869ccf57" />
+<table>
+  <tr>
+    <td>
+      • <b>Object rendering</b><br><br>
+      <img width="420" alt="2026-04-27 15-48-48" src="https://github.com/user-attachments/assets/710ad661-46a3-4795-abd1-9fa3869ccf57" />
+    </td>
+    <td>
+      • <b>Optimization</b><br><br>
+      <img width="420"  alt="image" src="https://github.com/user-attachments/assets/490bf47b-759d-4e9b-9cb4-e53f8ea5db7a" />
+    </td>
+  </tr>
+</table>
+
+
 
 
 
 ## How to run:<br>
 1. Head to <a href="https://github.com/niemaminiona/3D_Engine/releases">Releases</a> and choose version. Examples:<br><br>
-`v0.2` -> Stable release<br>
-`v0.2b` -> Beta release (Possible bugs)<br><br>
+`v0.2.1` -> Stable release<br>
+`v0.2.1b` -> Beta release (Possible bugs)<br><br>
 2. In assets you should be able to download program in .rar file<br>
 <img width="200" height="126" alt="image" src="https://github.com/user-attachments/assets/40df0551-d914-4223-ad62-40c95de2a10b" /><br>
 3. After downloading, run the .exe file and enjoy<br>
