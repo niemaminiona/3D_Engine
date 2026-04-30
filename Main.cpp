@@ -1,10 +1,11 @@
 #include "app.h"
 #include "Camera.h"
 
-
 // classic full_HD 16:9 resolution
 int windowWidth = 1600;
 int windowHeight = 900;
+
+string windowTitle = "3D_Engine v0.2.1b";
 
 // main program
 int main() {
@@ -15,9 +16,16 @@ int main() {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+	//glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-	GLFWwindow* window = glfwCreateWindow(windowWidth, windowHeight, "OpenGL Render", NULL, NULL);
+	const GLFWvidmode* vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+
+	if (vidMode != nullptr) {
+		windowWidth = (int)(vidMode->width * 0.8f);
+		windowHeight = (int)(vidMode->height * 0.8f);
+	}
+
+	GLFWwindow* window = glfwCreateWindow(windowWidth, windowHeight, windowTitle.c_str(), NULL, NULL);
 
 	if (window == NULL) {
 		std::cerr << "Failed to create GLFW window" << std::endl;
@@ -39,13 +47,13 @@ int main() {
 
 	ShowWindow(GetConsoleWindow(), SW_HIDE); // hides terminal from background
 
-	const GLFWvidmode* vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+	
 	if (vidMode != nullptr) {
 		glfwSetWindowPos(window, (vidMode->width - windowWidth) / 2, (vidMode->height - windowHeight) / 2);
 	}
 
 	glfwSetKeyCallback(window, keyCallback);
-
+	glfwSetFramebufferSizeCallback(window, framebufferSizeCallback);
 
 
 	Shader shader = Shader("testShader1");
@@ -89,10 +97,10 @@ int main() {
 	};
 
 	FloatModel model(vertices, indices, shader);
-	model.Translate(glm::vec3(0.0f,0.0f,-2.0f));
 	model.Scale(glm::vec3(0.5f));
 
-	Camera camera(windowWidth, windowHeight, glm::vec3(0.0f,0.0f,0.0f), shader);
+	Camera camera(windowWidth, windowHeight, glm::vec3(0.0f, 0.0f, 3.0f), shader);
+	g_camera = &camera;
 
 	// main update loop
 	while (!glfwWindowShouldClose(window)) {
@@ -120,7 +128,7 @@ void update(GLFWwindow* window) {
 	glfwPollEvents();
 
 	framesCount++;
-	string title = "OpenGL " + std::to_string(framesCount);
+	string title = windowTitle + "   (" + std::to_string(framesCount) + ")";
 	glfwSetWindowTitle(window, title.c_str());
 
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -131,5 +139,15 @@ void update(GLFWwindow* window) {
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
 		glfwSetWindowShouldClose(window, GLFW_TRUE);
+	}
+}
+
+void framebufferSizeCallback(GLFWwindow* window, int width, int height)
+{
+	glViewport(0, 0, width, height);
+	if (g_camera)
+	{
+		g_camera->width = width;
+		g_camera->height = height;
 	}
 }
