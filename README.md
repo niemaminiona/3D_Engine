@@ -1,7 +1,7 @@
 # 3D Engine
 A lightweight 3D rendering engine designed for viewing and interacting with 3D models. Users can import models created in external software or utilize pre-installed sample objects included within the application.<br>
 > [!IMPORTANT]
-> The current version `(v0.1)` includes only one pre-installed object. Support for importing custom models will be added in future updates.
+> The current version `(v0.2.1)` includes only one pre-installed object. Support for importing custom models will be added in future updates.
 ## Example:<br>
 <table>
   <tr>
@@ -40,10 +40,10 @@ A lightweight 3D rendering engine designed for viewing and interacting with 3D m
 
 ## Development Roadmap:
 - [x] v0.1 - Basic model rendering system
-- [ ] v0.2.1 - Camera controls
+- [x] v0.2.1 - Camera controls
 - [ ] v0.2.2 - FPS counter
-- [ ] v0.3 - Lighting and shadow system
-- [ ] v0.4 - Import support for .obj files
+- [ ] v0.3 - Import support for .obj files
+- [ ] v0.4 - Lighting and shadow system
 - [ ] v0.5 - UI implementation
 - [ ] v0.6.1 - Settings
 - [ ] v0.6.2 - Rendering options
