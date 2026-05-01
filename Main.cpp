@@ -109,7 +109,7 @@ int main() {
 		camera.HandleAllInputs(window);
 		camera.Update();
 
-		model.Rotate(0.5f, glm::vec3(1.0f, 0.1f, 1.0f));
+		//model.Rotate(0.5f, glm::vec3(1.0f, 0.1f, 1.0f));
 
 		model.Render();
 

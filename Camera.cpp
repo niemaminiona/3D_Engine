@@ -9,6 +9,8 @@ void Camera::Update() {
 	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
 	front = glm::normalize(front);
 
+	frontXZ = glm::normalize(glm::vec3(front.x, 0.0f, front.z));
+
 	right = glm::normalize(glm::cross(front, glm::vec3(0.0f, 1.0f, 0.0f)));
 	up = glm::normalize(glm::cross(right, front));
 
@@ -29,11 +31,11 @@ void Camera::HandleKeyInputs(GLFWwindow* window) {
 	// W, S, A, D
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 	{
-		position += front * moveSpeed;
+		position += frontXZ * moveSpeed;
 	}
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
 	{
-		position -= front * moveSpeed;
+		position -= frontXZ * moveSpeed;
 	}
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 	{
@@ -72,14 +74,17 @@ void Camera::HandleKeyInputs(GLFWwindow* window) {
 void Camera::HandleMouseInputs(GLFWwindow* window) {
 	// switching between modes
 	bool currentLeft = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS;
-	if (currentLeft && !lastLeftMouseState) {
-		if (!mouseFocusedMode) {
+	if (currentLeft && !lastLeftMouseState)
+	{
+		mouseFocusedMode = !mouseFocusedMode;
+		if (mouseFocusedMode)
+		{
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-			mouseFocusedMode = true;
+			firstMouse = true;
 		}
-		else {
+		else
+		{
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-			mouseFocusedMode = false;
 		}
 	}
 	lastLeftMouseState = currentLeft;
@@ -105,10 +110,9 @@ void Camera::HandleMouseInputs(GLFWwindow* window) {
 		xoffset *= sensitivity;
 		yoffset *= sensitivity;
 
-		if (pitch >= 89.0f) pitch = 89.0f;
-		if (pitch <= -89.0f) pitch = -89.0f;
-
 		yaw += (float)xoffset;
 		pitch += (float)yoffset;
+
+		pitch = glm::clamp(pitch, -89.0f, 89.0f);
 	}
 }
