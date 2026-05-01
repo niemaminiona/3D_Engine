@@ -11,6 +11,8 @@
 
 class Camera {
 public:
+	GLfloat moveSpeed = 0.05f;
+	GLfloat turnSpeed = 0.75f;
 
 	// projection values
 	GLint width;
@@ -41,6 +43,5 @@ private:
 	GLfloat yaw = -90.0f;
 	GLfloat pitch = 0.0f;
 
-	GLfloat moveSpeed = 0.05f;
-	GLfloat turnSpeed = 0.75f;
+
 };

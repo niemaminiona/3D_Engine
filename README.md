@@ -7,11 +7,11 @@ A lightweight 3D rendering engine designed for viewing and interacting with 3D m
   <tr>
     <td>
       • <b>Object rendering</b><br><br>
-      <img width="420" alt="2026-04-27 15-48-48" src="https://github.com/user-attachments/assets/710ad661-46a3-4795-abd1-9fa3869ccf57" />
+      <img width="360" alt="2026-04-27 15-48-48" src="https://github.com/niemaminiona/3D_Engine/tree/master/assets/README/spinnin_cube.gif" />
     </td>
     <td>
       • <b>Optimization</b><br><br>
-      <img width="420"  alt="image" src="https://github.com/user-attachments/assets/490bf47b-759d-4e9b-9cb4-e53f8ea5db7a" />
+      <img width="360"  alt="image" src="https://github.com/niemaminiona/3D_Engine/tree/master/assets/README/optimization_example.gif" />
     </td>
   </tr>
 </table>

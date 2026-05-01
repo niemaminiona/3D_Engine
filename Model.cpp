@@ -37,7 +37,6 @@ void FloatModel::Render() {
 	glBindVertexArray(VAO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
 	glDrawElements(GL_TRIANGLES, indicesCount, GL_UNSIGNED_INT, 0);
-	ClearBuffers();
 }
 
 void FloatModel::ClearBuffers() {
