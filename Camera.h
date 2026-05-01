@@ -13,6 +13,7 @@ class Camera {
 public:
 	GLfloat moveSpeed = 0.05f;
 	GLfloat turnSpeed = 0.75f;
+	GLfloat sensitivity = 0.1f;
 
 	// projection values
 	GLint width;
@@ -29,8 +30,9 @@ public:
 
 	void Update();
 
+	void HandleAllInputs(GLFWwindow* window);
 	void HandleKeyInputs(GLFWwindow* window);
-
+	void HandleMouseInputs(GLFWwindow* window);
 private:
 	Shader& shader;
 
@@ -43,5 +45,10 @@ private:
 	GLfloat yaw = -90.0f;
 	GLfloat pitch = 0.0f;
 
+	double lastX = 0.0;
+	double lastY = 0.0;
+	bool firstMouse = true;
+	bool lastLeftMouseState = false;
 
+	bool mouseFocusedMode = false;
 };

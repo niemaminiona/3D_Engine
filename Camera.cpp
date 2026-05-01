@@ -19,6 +19,10 @@ void Camera::Update() {
     shader.setUniformMatrix4("projection", projection);
 }
 
+void Camera::HandleAllInputs(GLFWwindow* window) {
+	HandleKeyInputs(window);
+	HandleMouseInputs(window);
+}
 
 
 void Camera::HandleKeyInputs(GLFWwindow* window) {
@@ -62,5 +66,49 @@ void Camera::HandleKeyInputs(GLFWwindow* window) {
 	}
 	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
 		yaw -= turnSpeed;
+	}
+}
+
+void Camera::HandleMouseInputs(GLFWwindow* window) {
+	// switching between modes
+	bool currentLeft = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS;
+	if (currentLeft && !lastLeftMouseState) {
+		if (!mouseFocusedMode) {
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+			mouseFocusedMode = true;
+		}
+		else {
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+			mouseFocusedMode = false;
+		}
+	}
+	lastLeftMouseState = currentLeft;
+
+	// camera movement
+	if (mouseFocusedMode) {
+		double xpos, ypos;
+		glfwGetCursorPos(window, &xpos, &ypos);
+
+		if (firstMouse)
+		{
+			lastX = xpos;
+			lastY = ypos;
+			firstMouse = false;
+		}
+
+		double xoffset = xpos - lastX;
+		double yoffset = lastY - ypos;
+
+		lastX = xpos;
+		lastY = ypos;
+
+		xoffset *= sensitivity;
+		yoffset *= sensitivity;
+
+		if (pitch >= 89.0f) pitch = 89.0f;
+		if (pitch <= -89.0f) pitch = -89.0f;
+
+		yaw += (float)xoffset;
+		pitch += (float)yoffset;
 	}
 }
