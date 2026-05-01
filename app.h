@@ -22,6 +22,12 @@ using string = std::string;
 // global
 Camera* g_camera;
 
+// resolution variables
+const float targetAspect = 16.0f / 9.0f; // display ratio
+int windowWidth = 1600; // default size
+int windowHeight = 900; // default size
+
+
 // const variables
 const float toRadians = glm::pi<float>() / 180.0f;
 

@@ -1,11 +1,8 @@
 #include "app.h"
 #include "Camera.h"
 
-// classic full_HD 16:9 resolution
-int windowWidth = 1600;
-int windowHeight = 900;
 
-string windowTitle = "3D_Engine v0.2.1b";
+string windowTitle = "3D_Engine v0.2.1";
 
 // main program
 int main() {
@@ -19,9 +16,22 @@ int main() {
 
 	const GLFWvidmode* vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
-	if (vidMode != nullptr) {
-		windowWidth = (int)(vidMode->width * 0.8f);
-		windowHeight = (int)(vidMode->height * 0.8f);
+	if (vidMode != nullptr)
+	{
+		float maxW = (float)vidMode->width * 0.8f;
+		float maxH = (float)vidMode->height * 0.8f;
+
+		float windowW = maxW;
+		float windowH = windowW / targetAspect;
+
+		if (windowH > maxH)
+		{
+			windowH = maxH;
+			windowW = windowH * targetAspect;
+		}
+
+		windowWidth = (int)windowW;
+		windowHeight = (int)windowH;
 	}
 
 	GLFWwindow* window = glfwCreateWindow(windowWidth, windowHeight, windowTitle.c_str(), NULL, NULL);
@@ -95,10 +105,22 @@ int main() {
 		5, 3, 7
 	};
 
-	FloatModel model(vertices, indices, shader);
-	model.Scale(glm::vec3(0.5f));
+	//FloatModel model(vertices, indices, shader);
+	//model.Scale(glm::vec3(0.5f));
+
+	std::vector<FloatModel> listOfModels;
+	for (int i = -1; i <= 1; i++) {
+		for (int j = -1; j <= 1; j++) {
+			listOfModels.emplace_back(vertices, indices, shader);
+			listOfModels.back().Scale(glm::vec3(0.5f));
+			listOfModels.back().Translate(glm::vec3(i * 3.0f, -2.0f, j * 3.0f));
+		}
+	}
 
 	Camera camera(windowWidth, windowHeight, glm::vec3(0.0f, 0.0f, 3.0f), shader);
+	camera.FOV = 60.0f;
+	camera.zFar = 250.0f;
+
 	g_camera = &camera;
 
 	// main update loop
@@ -111,7 +133,11 @@ int main() {
 
 		//model.Rotate(0.5f, glm::vec3(1.0f, 0.1f, 1.0f));
 
-		model.Render();
+		//model.Render();
+
+		for (FloatModel& item : listOfModels) {
+			item.Render();
+		}
 
 		glfwSwapBuffers(window);
 	}

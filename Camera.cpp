@@ -46,14 +46,21 @@ void Camera::HandleKeyInputs(GLFWwindow* window) {
 		position += right * moveSpeed;
 	}
 
-	// SHIFT, SPACE
+	// SHIFT, SPACE, CTRL
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
 	{
 		position += glm::vec3(0.0f, 1.0f, 0.0f) * moveSpeed;
 	}
-	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
 	{
 		position -= glm::vec3(0.0f, 1.0f, 0.0f) * moveSpeed;
+	}
+	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+	{
+		moveSpeed = 0.2f;
+	}
+	else {
+		moveSpeed = defaultMoveSpeed;
 	}
 
 	// Arrows

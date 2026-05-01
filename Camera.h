@@ -12,6 +12,7 @@
 class Camera {
 public:
 	GLfloat moveSpeed = 0.05f;
+	GLfloat defaultMoveSpeed = moveSpeed;
 	GLfloat turnSpeed = 0.75f;
 	GLfloat sensitivity = 0.1f;
 
