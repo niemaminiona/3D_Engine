@@ -1,5 +1,5 @@
 #include "app.h"
-#include "Camera.h"
+
 
 
 string windowTitle = "3D_Engine v0.2.1";
@@ -42,7 +42,13 @@ int main() {
 		return -1;
 	}
 	glfwMakeContextCurrent(window);
-	glfwSwapInterval(GLFW_TRUE); // enables v-Sync
+	if (vSyncEnabled) {
+		glfwSwapInterval(GLFW_TRUE); // enables v-Sync
+	}
+	else {
+		glfwSwapInterval(GLFW_FALSE);
+	}
+
 
 	if (!gladLoadGL()) {
 		std::cout << "Failed to load GLAD" << std::endl;
@@ -125,6 +131,8 @@ int main() {
 
 	// main update loop
 	while (!glfwWindowShouldClose(window)) {
+		auto start = std::chrono::high_resolution_clock::now();
+
 		update(window);
 		shader.Bind();
 
@@ -140,6 +148,18 @@ int main() {
 		}
 
 		glfwSwapBuffers(window);
+
+
+		// FPS limiter
+		if (!vSyncEnabled) {
+			auto end = std::chrono::high_resolution_clock::now();
+			std::chrono::duration<double> elapsed = end - start;// Calculate how much time passed since the frame started
+
+			double sleepTime = frameTime - elapsed.count();// Calculate how much time we still need to wait
+			if (sleepTime > 0.0) {
+				std::this_thread::sleep_for(std::chrono::duration<double>(sleepTime));
+			}
+		}
 	}
 
 	glfwDestroyWindow(window);
@@ -149,13 +169,23 @@ int main() {
 
 
 // this code runs every frame
-int framesCount = 0;
 void update(GLFWwindow* window) {
 	glfwPollEvents();
 
-	framesCount++;
-	string title = windowTitle + "   (" + std::to_string(framesCount) + ")";
-	glfwSetWindowTitle(window, title.c_str());
+
+	double currentTime = glfwGetTime();
+	frameCount++;
+
+	if (currentTime - lastTime >= 0.5) {
+		double elapsed = currentTime - lastTime;
+		double fps = frameCount / elapsed;
+
+		std::string title = windowTitle + "    (" + std::to_string((int)fps) + " FPS)";
+		glfwSetWindowTitle(window, title.c_str());
+
+		frameCount = 0;
+		lastTime = currentTime;
+	}
 
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

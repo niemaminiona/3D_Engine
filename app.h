@@ -6,6 +6,8 @@
 #include <fstream>
 #include <string>
 #include <cmath>
+#include <thread>
+#include <chrono>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -21,6 +23,13 @@ using string = std::string;
 
 // global
 Camera* g_camera;
+
+// FPS counter
+const bool vSyncEnabled = false;
+const double targetFPS = 240.0;
+const double frameTime = 1.0 / targetFPS;
+static double lastTime = glfwGetTime();
+static int frameCount = 0;
 
 // resolution variables
 const float targetAspect = 16.0f / 9.0f; // display ratio

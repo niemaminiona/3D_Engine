@@ -66,9 +66,11 @@ void Camera::HandleKeyInputs(GLFWwindow* window) {
 	// Arrows
 	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
 		pitch += turnSpeed;
+		pitch = glm::clamp(pitch, -89.0f, 89.0f);
 	}
 	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
 		pitch -= turnSpeed;
+		pitch = glm::clamp(pitch, -89.0f, 89.0f);
 	}
 	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
 		yaw += turnSpeed;
