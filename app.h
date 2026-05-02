@@ -22,11 +22,12 @@
 using string = std::string;
 
 // global
+string windowTitle = "3D_Engine v0.2.2";
 Camera* g_camera;
 
 // FPS counter
 const bool vSyncEnabled = false;
-const double targetFPS = 240.0;
+const double targetFPS = 60.0;
 const double frameTime = 1.0 / targetFPS;
 static double lastTime = glfwGetTime();
 static int frameCount = 0;

@@ -1,9 +1,5 @@
 #include "app.h"
 
-
-
-string windowTitle = "3D_Engine v0.2.1";
-
 // main program
 int main() {
 	if (!glfwInit()) {
@@ -126,8 +122,10 @@ int main() {
 	Camera camera(windowWidth, windowHeight, glm::vec3(0.0f, 0.0f, 3.0f), shader);
 	camera.FOV = 60.0f;
 	camera.zFar = 250.0f;
-
 	g_camera = &camera;
+
+
+
 
 	// main update loop
 	while (!glfwWindowShouldClose(window)) {
@@ -161,6 +159,10 @@ int main() {
 			}
 		}
 	}
+
+
+
+
 
 	glfwDestroyWindow(window);
 	glfwTerminate();
