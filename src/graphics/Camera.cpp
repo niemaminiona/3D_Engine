@@ -1,4 +1,4 @@
-#include "Camera.h"
+#include "src/graphics/Camera.h"
 
 Camera::Camera(int width, int height, glm::vec3 position, Shader& shader)
 	: width(width), height(height), position(position), shader(shader) { Update(); }

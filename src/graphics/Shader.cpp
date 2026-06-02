@@ -1,4 +1,4 @@
-#include "Shader.h"
+#include "src/graphics/Shader.h"
 
 Shader::Shader(const std::string& shaderName) {
 	std::string vertexShaderCode = readFromFile("shaders/" + shaderName + "/vertex_shader.glsl");
