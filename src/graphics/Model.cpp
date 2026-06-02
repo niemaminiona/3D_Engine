@@ -1,5 +1,4 @@
-#include "Model.h"
-#include "Shader.h"
+#include "src/graphics/Model.h"
 
 FloatModel::FloatModel(const std::vector<GLfloat>&vertices, const std::vector<GLuint> indices, Shader& shader) : shader(shader) {
 	

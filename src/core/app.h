@@ -15,9 +15,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/constants.hpp>
 
-#include "Shader.h"
-#include "Model.h"
-#include "Camera.h"
+#include "src/graphics/Shader.h"
+#include "src/graphics/Model.h"
+#include "src/graphics/Camera.h"
 
 using string = std::string;
 
@@ -26,7 +26,7 @@ string windowTitle = "3D_Engine v0.2.2";
 Camera* g_camera;
 
 // FPS counter
-const bool vSyncEnabled = false;
+bool vSyncEnabled = false;
 const double targetFPS = 60.0;
 const double frameTime = 1.0 / targetFPS;
 static double lastTime = glfwGetTime();

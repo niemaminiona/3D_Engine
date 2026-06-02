@@ -1,4 +1,4 @@
-#include "app.h"
+#include "src/core/app.h"
 
 // main program
 int main() {
@@ -65,7 +65,6 @@ int main() {
 
 	glfwSetKeyCallback(window, keyCallback);
 	glfwSetFramebufferSizeCallback(window, framebufferSizeCallback);
-
 
 	Shader shader = Shader("testShader1");
 
