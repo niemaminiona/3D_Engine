@@ -15,9 +15,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/constants.hpp>
 
-#include "Shader.h"
-#include "Model.h"
-#include "Camera.h"
+#include "src/graphics/Shader.h"
+#include "src/graphics/Model.h"
+#include "src/graphics/Camera.h"
 
 using string = std::string;
 
